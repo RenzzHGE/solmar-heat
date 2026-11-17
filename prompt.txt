@@ -1,0 +1,45 @@
+Build SOLMAR HEAT, a complete open-world crime game for the make.fun gta6-01 bounty
+("Make GTA 6", $1,666), as static files under game/ with no build step and no
+network requests.
+
+The game: a top-down open-world crime game in the original sun-soaked coastal city
+of Solmar. A 7x7 street-grid city to explore on foot and by car. Traffic cars that
+follow the road grid, turn at intersections and brake for the car ahead. Pedestrians
+who walk the sidewalks and flee from danger. Cars to steal (walk up and press E;
+the driver bails and runs). A wanted level of 0-5 stars that rises with crimes and
+falls when the player stays clean; police cars that chase and ram, and foot cops
+that chase and punch; getting caught on foot means BUSTED, running out of health
+means WASTED. Three story missions in order from Mara the fixer — First Job
+(drive to the pickup point), Hot Package (collect 3 packages, deliver to the
+garage), Lose the Heat (reach the hideout and lose 3 stars of cops) — then free
+roam with repeatable package runs for cash. Combat on foot (punch), car crashes,
+health regen when the heat is off. A HUD with cash, wanted stars, a health bar, a
+speedometer, a minimap of the whole city, a mission objective bar and an off-screen
+target arrow. A start screen, pause, busted/wasted/win screens, and a save in
+localStorage. Sound synthesised live with WebAudio (engine hum, two-tone siren,
+action cues) — no audio files. Keyboard + mouse: WASD/arrows drive and walk,
+Shift runs, Space handbrakes, E enters/steals/exits a car, F or click punches,
+P pauses, M mutes, Enter starts/confirms.
+
+Structure: game/index.html plus game/src/ split into one file per job — config
+(tuning + palette), random (seeded RNG), utils (math/collision), input (keyboard
++ mouse), audio (WebAudio synth), city (seeded city builder: roads, blocks,
+buildings, park, parking lot, beach), world (state + fixed 1/60s step + save),
+player (on-foot + driving + stealing + punching + crashes), traffic (traffic cars
++ pedestrians), police (wanted system + pursuit), missions (3-job state machine),
+render (canvas drawing: ground, cars, peds, HUD, minimap, menus), shots
+(screenshot scenes staged by an autopilot that plays the real rules forward),
+main (boot + fixed-step loop + ?shot= scene staging). main.ts at the repo root
+copies game/ + screenshots/ to /output and writes /output/dossier.json with
+buildDossier from vendor/makefun-game.ts (the kit's copy, unchanged). serve.ts
+serves game/ locally. LICENSE is MIT.
+
+Screenshots: 4 real renders of the rebuilt game in a headless browser at 1280x720
+(start/title, driving, police chase at 3 stars, mission on foot), staged with
+?shot=start|drive|chase|mission&seed=1. The first by name is the cover.
+
+All names, art, sounds and music are original — nothing from GTA or any commercial
+game. Polish counts: controls and a camera that feel right, effects, sound and
+menus. The judge sees the game mostly through its screenshots, so each shot must
+show the open world at its best: the city, the HUD with minimap, traffic, the
+police after the player, a mission in progress.
